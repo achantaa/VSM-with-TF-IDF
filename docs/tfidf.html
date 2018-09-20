@@ -1,0 +1,150 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tfidf module &#8212; Domain Specific Information Retrieval 0.7b documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-tfidf">
+<span id="tfidf-module"></span><h1>tfidf module<a class="headerlink" href="#module-tfidf" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="tfidf.docshaving">
+<code class="descclassname">tfidf.</code><code class="descname">docshaving</code><span class="sig-paren">(</span><em>word</em>, <em>docslist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tfidf.html#docshaving"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tfidf.docshaving" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to calculate the number of times a given word occurs in a given document set
+:param word: word whose frequency in the entire document set is to be calculated
+:param docslist: a list containing all documents pertaining to a selected search category
+:return: the count of the number of documents in docslist in which word occurs</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tfidf.freq">
+<code class="descclassname">tfidf.</code><code class="descname">freq</code><span class="sig-paren">(</span><em>word</em>, <em>doc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tfidf.html#freq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tfidf.freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Frequency Counter Function
+:param word: the word whose frequency is to be calculated
+:param doc: the document in which the frequency of the word is to be calculated
+:return: return the number of times word has appeared in doc</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tfidf.idf">
+<code class="descclassname">tfidf.</code><code class="descname">idf</code><span class="sig-paren">(</span><em>word</em>, <em>docslist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tfidf.html#idf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tfidf.idf" title="Permalink to this definition">¶</a></dt>
+<dd><p>IDF-Calculator Function
+This function calculates and returns the Inverse Document Frequency of a given term
+:param word: the term for which idf is to be calculated
+:param docslist: a list of all the docs pertaining to the search category selected
+:return: log(N/df), i.e., IDF for N being the total number of documents and df being the document frequency of the term</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tfidf.stemmer">
+<code class="descclassname">tfidf.</code><code class="descname">stemmer</code><span class="sig-paren">(</span><em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tfidf.html#stemmer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tfidf.stemmer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stemmer Function based on the Porter Stemmer Algorithm to stem words
+:param vector: the set of words to be stemmed
+:return: returns a stemmed version of vector</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tfidf.tf">
+<code class="descclassname">tfidf.</code><code class="descname">tf</code><span class="sig-paren">(</span><em>word</em>, <em>doc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tfidf.html#tf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tfidf.tf" title="Permalink to this definition">¶</a></dt>
+<dd><p>TF-Calculator Function
+This function calculates and returns the term frequency of a given word in a document
+:param word: the term for which tf is to be calculated
+:param doc: the document in which the term frequency must be checked for
+:return: return 1 + log(tf), i.e., the weight function that term frequency contributes to TF-IDF</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tfidf.tokenizer">
+<code class="descclassname">tfidf.</code><code class="descname">tokenizer</code><span class="sig-paren">(</span><em>doc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tfidf.html#tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tfidf.tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizer Function that splits a string and converts them into unigrams and bigrams
+:param doc: the string for which tokens have to be made
+:return: a list of tokens extracted from the string, including unigrams and bigrams</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Domain Specific Information Retrieval</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Anirudh Achanta, Ashwin C Nallan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/tfidf.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

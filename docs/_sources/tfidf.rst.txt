@@ -1,0 +1,8 @@
+tfidf module
+============
+The TF-IDF Module has all the functions requried to calculate the TF-IDF. It has tf and idf functions and also contains the stemmer and tokenizer functions too.
+
+.. automodule:: tfidf
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,7 @@
+calc module
+===========
+The calc module is responsible for calculating the tf-idf scores for both query and document and taking their cosine similarity. It then passes the output to main, after sorting the results and choosing the top 10.
+.. automodule:: calc
+    :members:
+    :undoc-members:
+    :show-inheritance:

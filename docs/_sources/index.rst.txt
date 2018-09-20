@@ -1,0 +1,29 @@
+.. Domain Specific Information Retrieval documentation master file, created by
+   sphinx-quickstart on Thu Sep 20 01:47:56 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+CS F469 - Information Retrieval - Assignment 1
+==============================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Domain Specific Information Retrieval
+=====================================
+This project aims to build a Domain Specific Search Engine that searches a given corpus. The courpus used is an XML file dump from NASA that contains a list of all the research papers that were published in the 1950s-2000s on Astronomy and related topics.
+There are four categories to search from - Title, Author, Description, and Year of Publication. For instructions on how to run the program, see 'Readme.txt'.
+
+
+
+* This documentation contains the list of all functions and modules used in this program.
+* There are 4 modules - calc, tfidf, preprocessor and main. Click on 'Module Index' to get a list of all 4, and choose the one which you want to see.
+* In each module, click on the '[source]' button to see the source code for the corresponding function.
+
+
+Indices
+*******
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

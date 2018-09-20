@@ -1,0 +1,148 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>calc module &#8212; Domain Specific Information Retrieval 0.7b documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-calc">
+<span id="calc-module"></span><h1>calc module<a class="headerlink" href="#module-calc" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="calc.cosine_similarity">
+<code class="descclassname">calc.</code><code class="descname">cosine_similarity</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc.html#cosine_similarity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calc.cosine_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to find the dot product of two vectors
+:param v1: a given tf-idf vector
+:param v2: a given tf-idf vector
+:return: the dot product/cosine similarity of two vectors</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="calc.doc_vectorizer">
+<code class="descclassname">calc.</code><code class="descname">doc_vectorizer</code><span class="sig-paren">(</span><em>docs</em>, <em>query_tokens</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc.html#doc_vectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calc.doc_vectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to form the tf-idf vector for each doc and store the vector as a value in a dictionary with key as doc
+:param docs: list of all documents based on the type of search selected
+:param query_tokens: tokens formed on the query string read from user input
+:return: a dict which represents the tf-idf vectors of each doc stored as value against the doc as key</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="calc.normalize">
+<code class="descclassname">calc.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>vec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calc.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to find the normalized form of a vector
+:param vec: a given tf-idf vector
+:return: the vector in normalized form</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="calc.query_tokenizer">
+<code class="descclassname">calc.</code><code class="descname">query_tokenizer</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc.html#query_tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calc.query_tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to tokenize the give user query
+:param query: query string read from user input
+:return: List of tokens formed from the query</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="calc.query_vectorizer">
+<code class="descclassname">calc.</code><code class="descname">query_vectorizer</code><span class="sig-paren">(</span><em>query</em>, <em>docs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc.html#query_vectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calc.query_vectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to form the tf-idf vector representing query
+:param query: query string read from user input
+:param docs: list of all documents based on the type of search selected
+:return: a list which represents the tf-idf vector of query</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="calc.search_result">
+<code class="descclassname">calc.</code><code class="descname">search_result</code><span class="sig-paren">(</span><em>query</em>, <em>option</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc.html#search_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calc.search_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to find the top results to be given to user as output based on query and search type
+:param query: query string read from user input
+:param option: search type
+:return: list or dictionary of the top results of a particular search</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Domain Specific Information Retrieval</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Anirudh Achanta, Ashwin C Nallan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/calc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

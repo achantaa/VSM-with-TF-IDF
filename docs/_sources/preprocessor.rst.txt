@@ -1,0 +1,9 @@
+preprocessor module
+===================
+The preprocessor module is responsible for parsing the XML file and getting the required text from the corresponding tags. It stores the text in lists or dictrionaries.
+
+
+.. automodule:: preprocessor
+    :members:
+    :undoc-members:
+    :show-inheritance:

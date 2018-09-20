@@ -1,0 +1,8 @@
+main module
+===========
+The main module starts the program. It takes the query as input and processes it by calling search_result() from calc
+
+.. automodule:: main
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,193 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tfidf &#8212; Domain Specific Information Retrieval 0.7b documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for tfidf</h1><div class="highlight"><pre>
+<span></span><span class="c1"># import nltk for tokenizing and n-grams</span>
+<span class="kn">import</span> <span class="nn">string</span><span class="o">,</span> <span class="nn">nltk</span>
+
+<span class="c1"># import PorterStemmer for the Porter Stemmer Algorithm</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="k">import</span> <span class="n">PorterStemmer</span>
+
+<span class="c1"># Download the list of english stopwords using nltk.download() and import them</span>
+<span class="c1"># nltk.download(&#39;stopwords&#39;, quiet=True)</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="k">import</span> <span class="n">stopwords</span>
+
+<span class="c1"># word tokenizer and n-grams</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="k">import</span> <span class="n">word_tokenize</span><span class="p">,</span> <span class="n">ngrams</span>
+
+<span class="c1"># import math for log and sqrt functions used in tf-idf calculations</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="c1">#Set Stopwords from NLTK</span>
+<span class="n">stops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">((</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="freq"><a class="viewcode-back" href="../tfidf.html#tfidf.freq">[docs]</a><span class="k">def</span> <span class="nf">freq</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Frequency Counter Function</span>
+<span class="sd">    :param word: the word whose frequency is to be calculated</span>
+<span class="sd">    :param doc: the document in which the frequency of the word is to be calculated</span>
+<span class="sd">    :return: return the number of times word has appeared in doc</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></div>
+
+
+<span class="c1"># function returns number of documents having given word    </span>
+<div class="viewcode-block" id="docshaving"><a class="viewcode-back" href="../tfidf.html#tfidf.docshaving">[docs]</a><span class="k">def</span> <span class="nf">docshaving</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">docslist</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to calculate the number of times a given word occurs in a given document set</span>
+<span class="sd">    :param word: word whose frequency in the entire document set is to be calculated</span>
+<span class="sd">    :param docslist: a list containing all documents pertaining to a selected search category</span>
+<span class="sd">    :return: the count of the number of documents in docslist in which word occurs</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docslist</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">count</span></div>
+        
+<span class="c1"># function returns tf value of the given word in given document.    </span>
+<div class="viewcode-block" id="tf"><a class="viewcode-back" href="../tfidf.html#tfidf.tf">[docs]</a><span class="k">def</span> <span class="nf">tf</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    TF-Calculator Function</span>
+<span class="sd">    This function calculates and returns the term frequency of a given word in a document</span>
+<span class="sd">    :param word: the term for which tf is to be calculated</span>
+<span class="sd">    :param doc: the document in which the term frequency must be checked for</span>
+<span class="sd">    :return: return 1 + log(tf), i.e., the weight function that term frequency contributes to TF-IDF</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">freq</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">freq</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">doc</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+    
+<span class="c1"># function returns idf value of the given word in given list of documents.    </span>
+<div class="viewcode-block" id="idf"><a class="viewcode-back" href="../tfidf.html#tfidf.idf">[docs]</a><span class="k">def</span> <span class="nf">idf</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">docslist</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    IDF-Calculator Function</span>
+<span class="sd">    This function calculates and returns the Inverse Document Frequency of a given term</span>
+<span class="sd">    :param word: the term for which idf is to be calculated</span>
+<span class="sd">    :param docslist: a list of all the docs pertaining to the search category selected</span>
+<span class="sd">    :return: log(N/df), i.e., IDF for N being the total number of documents and df being the document frequency of the term</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">docshaving</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">docslist</span><span class="p">))</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">docslist</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="stemmer"><a class="viewcode-back" href="../tfidf.html#tfidf.stemmer">[docs]</a><span class="k">def</span> <span class="nf">stemmer</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Stemmer Function based on the Porter Stemmer Algorithm to stem words</span>
+<span class="sd">    :param vector: the set of words to be stemmed</span>
+<span class="sd">    :return: returns a stemmed version of vector</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">stemmed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stemmer</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">vector</span><span class="p">:</span>
+        <span class="n">stemmed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">stemmed</span></div>
+
+<span class="c1"># function returns list of tokens obtained from a string, including unigrams and bigrams</span>
+<div class="viewcode-block" id="tokenizer"><a class="viewcode-back" href="../tfidf.html#tfidf.tokenizer">[docs]</a><span class="k">def</span> <span class="nf">tokenizer</span> <span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Tokenizer Function that splits a string and converts them into unigrams and bigrams</span>
+<span class="sd">    :param doc: the string for which tokens have to be made</span>
+<span class="sd">    :return: a list of tokens extracted from the string, including unigrams and bigrams</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">doc_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stops</span><span class="p">]</span>
+    <span class="n">doc_tokens</span> <span class="o">=</span> <span class="n">stemmer</span><span class="p">(</span><span class="n">doc_tokens</span><span class="p">)</span>
+    <span class="n">unigram</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span> <span class="k">for</span> <span class="n">gram</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="p">(</span><span class="n">doc_tokens</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> 
+    <span class="n">bigram</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gram</span><span class="p">)</span> <span class="k">for</span> <span class="n">gram</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="p">(</span><span class="n">doc_tokens</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+    <span class="n">doc_tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">unigram</span> <span class="o">+</span> <span class="n">bigram</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">doc_tokens</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Domain Specific Information Retrieval</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Anirudh Achanta, Ashwin C Nallan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
